@@ -8,17 +8,18 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+
+            $table->id('id')->comment('A felhasználó azonosítója.');
+            $table->string('name', 50)->comment('A felhasználó neve.');
+            $table->string('email', 100)->unique()->comment('A felhasználó email címe.');
+            $table->timestamp('email_verified_at')->nullable()->comment('A felhasználó email címe meg lett e erősítve.');
+            $table->string('password')->comment('A felhasználó jelszavának titkosított változata.');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -26,10 +27,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('users');
     }
