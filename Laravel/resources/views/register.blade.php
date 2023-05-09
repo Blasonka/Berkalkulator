@@ -7,31 +7,76 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-auto col-sm-12 bg-blur-login">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
-                    <div class="row col-lg-10 mb-3 mx-auto">
+                    <div class="row col-lg-10 mx-auto">
                         <label for="name" class="form-label">Név</label>
-                        <div class="mx-auto">
-                            <input type="text" class="form-control" id="name" name="name" required>
+                        <div class="mx-auto mb-3">
+                            <input type="text" class="form-control mb-3" id="name" name="name" required>
+                            @if ($errors->has('name'))
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->get('name') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row col-lg-10 mb-3 mx-auto">
                         <label for="email" class="form-label">Email</label>
                         <div class="mx-auto">
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control mb-3 danger" id="email" name="email" required>
+                            @if ($errors->has('email'))
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->get('email') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row col-lg-10 mb-3 mx-auto">
                         <label for="password" class="form-label">Jelszó</label>
                         <div class="mx-auto">
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control mb-3" id="password" name="password" required>
+                            @if ($errors->has('password'))
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->get('password') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row col-lg-10 mb-3 mx-auto">
                         <label for="password_confirmation" class="form-label">Jelszó megerősítése</label>
                         <div class="mx-auto">
-                            <input type="password" class="form-control" id="password_confirmation"
+                            <input type="password" class="form-control mb-3" id="password_confirmation"
                                 name="password_confirmation" required>
+                            @if ($errors->has('password_confirmation'))
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->get('password_confirmation') as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row col-lg-10 mb-3 mx-auto">

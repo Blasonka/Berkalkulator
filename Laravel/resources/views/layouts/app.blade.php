@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="description" content="...">
+    <meta name="description" content="Számoltasd ki egyszerűen a béredet!">
     <meta name="keywords"
-        content="house, House, of, Of, Swords, swords, hu, HU, strategia, stratégia, játék, jatek, online">
+        content="hu, HU, bér, Bér, kalkulátor, számoló, számolás, fizetés, óradíj">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>House of Swords</title>
+    <title>Bérkalkulátor</title>
     <link rel="icon" type="image/x-icon" href="/img/logo.png">
     @include('layouts.styles')
 </head>

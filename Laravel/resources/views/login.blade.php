@@ -7,7 +7,16 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-auto col-sm-12 bg-blur-login">
-                <form>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="row col-lg-10 mb-3 mx-auto">
                         <label for="email" class="form-label">Email</label>

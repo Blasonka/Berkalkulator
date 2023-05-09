@@ -25,6 +25,7 @@
 
                     {{-- Navbar right side --}}
                     <ul class="navbar-nav ms-auto">
+                        {{-- Only visibal for non authenticated visitors --}}
                         @guest
                             <li class="nav-item {{ request()->is('register') ? 'active' : '' }}">
                                 <a class="nav-link" href="{{ route('register') }}">Regisztráció</a>
@@ -34,6 +35,20 @@
                                 <a class="nav-link" href="{{ route('login') }}">Belépés</a>
                             </li>
                         @endguest
+
+                        {{-- Only visibal for authenticated visitors --}}
+                        @auth
+                            <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('home') }}">{{ Auth::user()->name }}</a>
+                            </li>
+
+                            <li class="nav-item {{ request()->is('logout') ? 'active' : '' }}">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="nav-link" href="{{ route('logout') }}" style="ded">Kijelentkezés</button>
+                                </form>
+                            </li>
+                        @endauth
                     </ul>
                 </div>
             </div>
