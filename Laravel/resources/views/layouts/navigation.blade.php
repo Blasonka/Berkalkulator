@@ -1,7 +1,7 @@
     <div class="col-12">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5 rounded-bottom">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ route('home') }}">Bérkalkulátor</a>
+                <a class="navbar-brand ps-5 ms-5" href="{{ route('home') }}">Bérkalkulátor</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,8 @@
                     </ul>
 
                     {{-- Navbar right side --}}
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto pe-5 me-5">
+
                         {{-- Only visibal for non authenticated visitors --}}
                         @guest
                             <li class="nav-item {{ request()->is('register') ? 'active' : '' }}">
@@ -38,16 +39,25 @@
 
                         {{-- Only visibal for authenticated visitors --}}
                         @auth
-                            <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('home') }}">{{ Auth::user()->name }}</a>
+                            <li class="nav-item {{ request()->is('calculator') ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('calculator') }}">Kalkulátor</a>
                             </li>
 
-                            <li class="nav-item {{ request()->is('logout') ? 'active' : '' }}">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="nav-link" href="{{ route('logout') }}" style="ded">Kijelentkezés</button>
-                                </form>
-                            </li>
+                            <div class="dropdown nav-item" data-bs-theme="dark">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <ul class="dropdown-menu btn-secondary bg-dark text-bg-dark text-grey" data-bs-theme="dark">
+                                    <li><a class="dropdown-item text-white {{ request()->is('/') ? 'shifts' : '' }}"
+                                            href="{{ route('shifts') }}">Mentett műszakok</a></li>
+                                    <li><a class="dropdown-item text-white {{ request()->is('/') ? 'active' : '' }}"
+                                            href="{{ route('home') }}">Profil</a></li>
+                                    <li><a class="dropdown-item text-light {{ request()->is('logout') ? 'active' : '' }}"
+                                            href="{{ route('logout') }}">Kijelentkezés</a></li>
+                                </ul>
+                            </div>
                         @endauth
                     </ul>
                 </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,14 +26,31 @@ Route::get('/support', function () {
 
 // Only guest can see
 Route::middleware('guest')->group(function () {
-    Route::get('register', function () { return view('register'); })->name('register');
+    Route::get('register', function () {
+        return view('register');
+    })->name('register');
     Route::post('register', [UserController::class, 'store']);
 
-    Route::get('login', function () { return view('login'); })->name('login');
+    Route::get('login', function () {
+        return view('login');
+    })->name('login');
     Route::post('login', [UserController::class, 'login']);
 });
 
 // Only authenticated users can see
 Route::middleware('auth')->group(function () {
-    Route::post('logout', [UserController::class, 'logout'])->name('logout');;
+    Route::get('/profil', function () {
+        return view('profil');
+    })->name('profil');
+
+    Route::get('/shifts', function () {
+        return view('shift');
+    })->name('shifts');
+
+    Route::post('shift', [ShiftController::class, 'store'])->name('shift');
+    Route::get('logout', [UserController::class, 'logout'])->name('logout');
+
+    Route::get('/calculator', function () {
+        return view('calculator');
+    })->name('calculator');
 });
