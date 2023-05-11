@@ -49,15 +49,26 @@
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <ul class="dropdown-menu btn-secondary bg-dark text-bg-dark text-grey" data-bs-theme="dark">
-                                    <li><a class="dropdown-item text-white {{ request()->is('/') ? 'shifts' : '' }}"
+                                <ul class="dropdown-menu bg-dark nav-item">
+                                    <li><a class=" nav-link dropdown-item {{ request()->is('shifts') ? 'active' : '' }}"
                                             href="{{ route('shifts') }}">Mentett műszakok</a></li>
-                                    <li><a class="dropdown-item text-white {{ request()->is('/') ? 'active' : '' }}"
+                                    <li><a class="nav-link {{ request()->is('/') ? 'active' : '' }}"
                                             href="{{ route('home') }}">Profil</a></li>
-                                    <li><a class="dropdown-item text-light {{ request()->is('logout') ? 'active' : '' }}"
+                                    <li><a class="nav-link dropdown-item {{ request()->is('logout') ? 'active' : '' }}"
                                             href="{{ route('logout') }}">Kijelentkezés</a></li>
                                 </ul>
                             </div>
+
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Dropdown button
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="#">Action</a></li>
+                                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                              </div>
                         @endauth
                     </ul>
                 </div>

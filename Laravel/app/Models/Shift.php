@@ -23,7 +23,8 @@ class Shift extends Model
         'user_id',
         'start_time',
         'end_time',
-        'hourly_wage'
+        'hourly_wage',
+        'worked_hours'
     ];
 
     public function user(){

@@ -42,7 +42,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if (Hash::check($request->password, $user->password)) {
+        if ( $user and Hash::check($request->password, $user->password)) {
             Auth::login($user);
             return redirect(route('home'));
         } else {

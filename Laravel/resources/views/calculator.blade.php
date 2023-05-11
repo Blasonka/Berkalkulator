@@ -40,6 +40,7 @@
                         <label for="hourly_wage" class="form-label">Órabér</label>
                         <div class="mx-auto">
                             <input type="number" id="hourly_wage" name="hourly_wage" min="1000" max="10000" required>
+                            <span style="margin-left:10px;">Ft</span>
                         </div>
                     </div>
                     <div class="row col-lg-10 mb-3 mx-auto">

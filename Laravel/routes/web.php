@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\UserController;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,7 +47,15 @@ Route::middleware('auth')->group(function () {
     })->name('profil');
 
     Route::get('/shifts', function () {
-        return view('shift');
+        $shifts = DB::table('shifts')->where('user_id', Auth::user()->id)->orderBy('start_time', 'desc')->get();
+        setlocale(LC_TIME, 'hu_HU.UTF-8');
+        Carbon::setLocale('hu');
+        foreach ($shifts as $shift) {
+            $shift->date = Carbon::parse($shift->start_time)->format('Y. m. j.');
+            $shift->start_time = Carbon::parse($shift->start_time)->format('H:i');
+            $shift->end_time = Carbon::parse($shift->end_time)->format('H:i');
+        }
+        return view('shift', ['shifts' => $shifts]);
     })->name('shifts');
 
     Route::post('shift', [ShiftController::class, 'store'])->name('shift');
