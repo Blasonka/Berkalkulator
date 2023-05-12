@@ -6,7 +6,7 @@ body {
     color: white;
 }
 
-main{
+main {
     margin-top: 6rem;
 }
 
@@ -33,14 +33,11 @@ main{
     -webkit-filter: blur(0.2rem);
 }
 
-/* #navbar_logo {
-    max-width: 3rem;
-}*/
-
 #header_logo {
     max-width: 10rem;
 }
 
+/* Custom background blur section */
 .bg-blur {
     background-color: rgba(0, 0, 0, 0.4);
     color: white;
@@ -50,6 +47,7 @@ main{
     margin: auto;
 }
 
+/* Custom background blur section for login */
 .bg-blur-login {
     background-color: rgba(0, 0, 0, 0.4);
     color: white;
@@ -57,4 +55,49 @@ main{
     border-radius: 2rem;
     padding: 20px;
     margin: auto;
+}
+
+/* Table */
+@media (max-width: 1200px) {
+    .table-wrap {
+        overflow-x: scroll;
+    }
+}
+
+.table {
+    min-width: 1000px !important;
+    width: 100%;
+    -webkit-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
+    -moz-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
+    box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
+}
+
+.table thead th {
+    border: none;
+    padding: 30px;
+    font-size: 13px;
+    color: #000;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.table thead tr {
+    background: #fff;
+}
+
+.table tbody tr {
+    background: #fff;
+}
+
+.table tbody th,
+.table tbody td {
+    border: none;
+    padding: 20px 30px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+/* Dropdown profile navigation item */
+.dropdown-item-custome:hover {
+    background-color: rgb(126, 128, 128);
 }

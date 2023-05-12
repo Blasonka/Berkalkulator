@@ -42,21 +42,11 @@ Route::middleware('guest')->group(function () {
 
 // Only authenticated users can see
 Route::middleware('auth')->group(function () {
-    Route::get('/profil', function () {
-        return view('profil');
-    })->name('profil');
+    Route::get('/profile', function () {
+        return view('profile');
+    })->name('profile');
 
-    Route::get('/shifts', function () {
-        $shifts = DB::table('shifts')->where('user_id', Auth::user()->id)->orderBy('start_time', 'desc')->get();
-        setlocale(LC_TIME, 'hu_HU.UTF-8');
-        Carbon::setLocale('hu');
-        foreach ($shifts as $shift) {
-            $shift->date = Carbon::parse($shift->start_time)->format('Y. m. j.');
-            $shift->start_time = Carbon::parse($shift->start_time)->format('H:i');
-            $shift->end_time = Carbon::parse($shift->end_time)->format('H:i');
-        }
-        return view('shift', ['shifts' => $shifts]);
-    })->name('shifts');
+    Route::get('/shifts', [ShiftController::class, 'show_page'])->name('shifts');
 
     Route::post('shift', [ShiftController::class, 'store'])->name('shift');
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
@@ -64,4 +54,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/calculator', function () {
         return view('calculator');
     })->name('calculator');
+
+    Route::post('update_profile', [UserController::class, 'update'])->name('update_profile');
 });

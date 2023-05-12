@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email', 100)->unique()->comment('A felhasználó email címe.');
             $table->timestamp('email_verified_at')->nullable()->comment('A felhasználó email címe meg lett e erősítve.');
             $table->string('password')->comment('A felhasználó jelszavának titkosított változata.');
+            $table->integer('hourly_wage')->nullable()->unsigned()->comment('A felhasználó órabére');
             $table->rememberToken();
             $table->timestamps();
         });

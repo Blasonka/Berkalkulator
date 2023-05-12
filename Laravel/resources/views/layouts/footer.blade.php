@@ -1,45 +1,100 @@
-<footer class="p-5 mt-5 bg-dark text-light w-100">
-    <div class="row">
-        <div class="col-lg-4 col-12 my-5 text-center align-middle border-bottom">
-            <h3>Kapcsolat</h3>
-            <ul class="list-unstyled list pl-5 ">
-                <li class="footer-li">
-                    <img src="https://img.icons8.com/ios-filled/32/a6876e/apple-mail.png" class="me-3 align-top" />
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=info@houseofswords.hu" target="_blank" class="basic-link">info@houseofswords.hu</a>
-                </li>
-                <li class="footer-li">
-                    <img src="https://img.icons8.com/external-smashingstocks-glyph-smashing-stocks/32/a6876e/external-location-web-smashingstocks-glyph-smashing-stocks.png" class="me-3 align-top" />
-                    <a href="https://goo.gl/maps/TCH6KQC1W8Dss8Wi9" target="_blank" class="basic-link">Győr, Szent István út 7.</a>
-                </li>
-            </ul>
+<!-- Footer -->
+<footer class="mt-5 text-center text-lg-start text-white bg-dark">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-between p-4" style="background-color: #1a66b8">
+        <!-- Left -->
+        <div class="me-5">
+            <span>Lépjen kapcsolatba velünk a közösségi oldalakon:</span>
         </div>
-        <div class="col-lg-4 col-12 text-center mx-auto border-bottom my-5">
-            <img src="/img/logo.png" alt="logo" class="w-50">
-            <h3>House of Swords</h3>
-            <p>A House of Swords egy izgalmas középkori világban játszódó stratégiai játék, ahol a játékosoknak taktikusan kell irányítaniuk a hadseregüket és ügyesen kezelniük erőforrásaikat a győzelem érdekében.</p>
+        <!-- Left -->
+
+        <!-- Right -->
+        <div>
+            <a href="https://www.facebook.com/balazs.blasek0.1" class="text-white me-4" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            {{-- <a href="" class="text-white me-4">
+                <i class="fab fa-twitter"></i>
+            </a> --}}
+            <a href="mailto: blasek.balazs@gmail.com" class="text-white me-4" target="_blank">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="https://www.instagram.com/balazsblasek" class="text-white me-4" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            {{-- <a href="" class="text-white me-4">
+                <i class="fab fa-linkedin"></i>
+            </a> --}}
+            {{-- <a href="" class="text-white me-4">
+                <i class="fab fa-github"></i>
+            </a> --}}
         </div>
-        <div class="col-lg-4 col-12 text-center my-5 border-bottom">
-            <h3>Navigálás</h3>
-            <ul class="list-unstyled list pl-5 w-50 mx-auto">
-                <li class="my-nav-item">
-                    <a href="/">Főoldal</a>
-                </li>
-                <li class="my-nav-item">
-                    <a href="/">A játékról</a>
-                </li>
-                <li class="my-nav-item">
-                    <a href="/">Letöltés</a>
-                </li>
-                <li class="my-nav-item">
-                    <a href="/">Hiba jelentése</a>
-                </li>
-                <li class="my-nav-item">
-                    <a href="/">Regisztráció</a>
-                </li>
-                <li class="my-nav-item">
-                    <a href="/">Belépés</a>
-                </li>
-            </ul>
+        <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold">Company name</h6>
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                        style="width: 60px; background-color: #1a66b8; height: 2px" />
+                    <p>
+                        Here you can use rows and columns to organize your footer
+                        content. Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit.
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold">Linkek</h6>
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                        style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <p>
+                        <a href="{{ route('profile') }}" class="text-white">Profil</a>
+                    </p>
+                    <p>
+                        <a href="{{ route('shifts') }}" class="text-white">Mentett beosztások</a>
+                    </p>
+                    <p>
+                        <a href="{{ route('calculator') }}" class="text-white">Kalkulátor</a>
+                    </p>
+                    <p>
+                        <a href="{{ route('home') }}" class="text-white">Kapcsolat</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold">Kontakt</h6>
+                    <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                        style="width: 60px; background-color: #7c4dff; height: 2px" />
+                    <p><i class="fas fa-home mr-3"></i> Magyarország, Győr</p>
+                    <p><i class="fas fa-envelope mr-3"></i> blasek.balazs@gmail.com</p>
+                    <p><i class="fas fa-phone mr-3"></i> + 36 30 605 2051</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
         </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        &copy 2023 Copyright:
+        <a class="text-white" href="https://balazs.blasek.hu">balazs.blasek.hu</a>
     </div>
+    <!-- Copyright -->
 </footer>
+<!-- Footer -->

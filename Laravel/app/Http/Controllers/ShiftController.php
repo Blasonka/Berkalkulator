@@ -6,6 +6,7 @@ use App\Models\Shift;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ShiftController extends Controller
 {
@@ -54,7 +55,7 @@ class ShiftController extends Controller
             'start_time' => $start_time,
             'end_time' => $end_time,
             'hourly_wage' => $hourly_wage,
-            'worked_hours' => $worked_hours
+            'worked_hours' => $worked_hours,
         ]);
 
         return redirect()->back();
@@ -92,5 +93,35 @@ class ShiftController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show_page()
+    {
+        $shifts = DB::table('shifts')
+            ->select(
+                'id',
+                'worked_hours',
+                'hourly_wage',
+                DB::raw("DATE_FORMAT(start_time, '%Y. %m. %d.') AS date"),
+                DB::raw("DATE_FORMAT(start_time, '%H:%i') AS start_time"),
+                DB::raw("DATE_FORMAT(end_time, '%H:%i') AS end_time")
+            )
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('start_time', 'desc')
+            ->get();
+
+        $months = DB::table('shifts')
+            ->select(DB::raw('YEAR(start_time) as year, MONTH(start_time) as month, SUM(worked_hours) as total_hours'), DB::raw('ROUND(SUM(worked_hours * hourly_wage)) as monthly_pay'))
+            ->where('user_id', Auth::user()->id)
+            ->groupBy(DB::raw('YEAR(start_time), MONTH(start_time)'))
+            ->get();
+
+        return view('shift', ['shifts' => $shifts, 'months' => $months]);
     }
 }

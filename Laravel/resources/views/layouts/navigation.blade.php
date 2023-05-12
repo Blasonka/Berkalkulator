@@ -43,32 +43,21 @@
                                 <a class="nav-link" href="{{ route('calculator') }}">Kalkulátor</a>
                             </li>
 
-                            <div class="dropdown nav-item" data-bs-theme="dark">
+                            <div class="dropdown nav-item">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <ul class="dropdown-menu bg-dark nav-item">
-                                    <li><a class=" nav-link dropdown-item {{ request()->is('shifts') ? 'active' : '' }}"
-                                            href="{{ route('shifts') }}">Mentett műszakok</a></li>
-                                    <li><a class="nav-link {{ request()->is('/') ? 'active' : '' }}"
-                                            href="{{ route('home') }}">Profil</a></li>
-                                    <li><a class="nav-link dropdown-item {{ request()->is('logout') ? 'active' : '' }}"
+                                    <li><a class=" nav-link dropdown-item-custome dropdown-item {{ request()->is('shifts') ? 'active' : '' }}"
+                                            href="{{ route('shifts') }}">Mentett beosztások</a></li>
+                                    <li><a class="nav-link dropdown-item-custome dropdown-item {{ request()->is('profile') ? 'active' : '' }}"
+                                            href="{{ route('profile') }}">Profil</a></li>
+                                    <li><a class="nav-link dropdown-item-custome dropdown-item {{ request()->is('logout') ? 'active' : '' }}"
                                             href="{{ route('logout') }}">Kijelentkezés</a></li>
                                 </ul>
                             </div>
-
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Dropdown button
-                                </button>
-                                <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="#">Action</a></li>
-                                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                              </div>
                         @endauth
                     </ul>
                 </div>

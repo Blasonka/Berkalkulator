@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +43,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        if ( $user and Hash::check($request->password, $user->password)) {
+        if ($user and Hash::check($request->password, $user->password)) {
             Auth::login($user);
             return redirect(route('home'));
         } else {
@@ -71,9 +72,17 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request)
     {
-        //
+        $user = Auth::user();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->hourly_wage = $request->hourly_wage;
+
+        $user->save();
+
+        return redirect(route('profile'));
     }
 
     /**
