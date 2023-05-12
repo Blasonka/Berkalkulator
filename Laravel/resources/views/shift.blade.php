@@ -49,7 +49,7 @@
                             <tr>
                                 <th>Dátum</th>
                                 <th>Kezdés</th>
-                                <th>Befelyezés</th>
+                                <th>Befejezés</th>
                                 <th>Dolgozott órák</th>
                                 <th>Órabér</th>
                                 <th></th>

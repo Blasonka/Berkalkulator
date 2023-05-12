@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:1|max:50|alpha_dash',
-            'email' => 'required|string|email|max:100|unique:users,email',
+            'email' => 'required|string|email|max:100',
             'hourly_wage' => 'required|integer|min:1000|max:10000',
         ];
     }

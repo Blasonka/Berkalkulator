@@ -1,0 +1,11 @@
+cd /volume4/web/berkalkulator
+sudo chown -R blasekb:http bootstrap/cache
+sudo chown -R blasekb:http storage
+chmod -R 775 bootstrap/cache
+chmod -R 775 storage
+
+
+php80 artisan view:clear
+php80 artisan route:clear
+php80 artisan cache:clear
+php80 artisan config:cache
