@@ -183,6 +183,10 @@ return [
         'name' => 'felhasználónév',
         'password' => 'jelszó',
         'password_confirmation' => 'jelszó megerősítése',
-        'hourly_wage' => 'órabér'
+        'hourly_wage' => 'órabér',
+        'hourly_wage' => 'órabér',
+        'current_password' => 'jelenlegi jelszó',
+        'new_password' => 'új jelszó',
+        'new_password_confirmation' => 'új jelszó megerősítése',
     ],
 ];

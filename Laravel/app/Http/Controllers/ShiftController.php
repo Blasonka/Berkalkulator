@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShiftRequest;
 use App\Models\Shift;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class ShiftController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShiftRequest $request)
     {
         if ($request->doublepay == 'on') {
             $hourly_wage = 2 * $request->hourly_wage;
@@ -36,19 +37,32 @@ class ShiftController extends Controller
 
         $start_time = Carbon::createFromFormat('Y-m-d H:i', $request->date . $request->start_time);
         $end_time = Carbon::createFromFormat('Y-m-d H:i', $request->date . $request->end_time);
-        //$worked_hours = $end_time->diffInHours($start_time);
 
-        // Ha a kezdő- és végdátum különböző napra esik, akkor a napok számát is figyelembe kell venni
-        if ($start_time->diffInDays($end_time) > 0) {
-            $worked_hours = $start_time->copy()->endOfDay()->diffInSeconds($start_time) / 3600; // Az első napon dolgozott órák száma
-            $worked_hours += $end_time->copy()->startOfDay()->diffInSeconds($end_time) / 3600; // Az utolsó napon dolgozott órák száma
-            $worked_hours += ($end_time->diffInDays($start_time) - 1) * 24; // A köztes napokon dolgozott órák száma
+        // Az este 6 óra időpontját a Carbon függvények segítségével létrehozzuk
+        $evening_start = Carbon::createFromTime(18, 0, 0);
+
+        // Ellenőrizzük, hogy a start_time este 6 óra után van-e
+        if ($start_time->greaterThanOrEqualTo($evening_start) || $end_time->greaterThan($evening_start)) {
+
+            if ($start_time->greaterThanOrEqualTo($evening_start)) {
+                // Számoljuk ki a munkaidőt a kezdő- és végidő között
+                $worked_hours = $start_time->diffInSeconds($end_time) * 1.3;
+            } else {
+                $worked_hours = $start_time->diffInSeconds($evening_start);
+                $worked_hours += $evening_start->diffInSeconds($end_time) * 1.3;
+            }
+            error_log('van bérpótlék');
         } else {
-            $worked_hours = $end_time->diffInSeconds($start_time) / 3600;
+            // Ha a start_time este 6 óra előtt van, akkor nincs bérpótlék
+            $worked_hours = $end_time->diffInSeconds($start_time);
+            error_log('nincs bérpótlék');
         }
 
         // A dolgozott órák számát századokra kerekítjük és tároljuk
-        $worked_hours = round($worked_hours, 2);
+        error_log($worked_hours);
+        $worked_hours = $worked_hours / 3600;
+        $worked_hours = round($worked_hours, 3);
+        error_log($worked_hours);
 
         $shift = Shift::create([
             'user_id' => Auth::user()->id,
@@ -79,9 +93,52 @@ class ShiftController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ShiftRequest $request, $id)
     {
-        //
+        if ($request->doublepay == 'on') {
+            $hourly_wage = 2 * $request->hourly_wage;
+        } else {
+            $hourly_wage = $request->hourly_wage;
+        }
+
+        $start_time = Carbon::createFromFormat('Y-m-d H:i', $request->date . $request->start_time);
+        $end_time = Carbon::createFromFormat('Y-m-d H:i', $request->date . $request->end_time);
+
+        // Az este 6 óra időpontját a Carbon függvények segítségével létrehozzuk
+        $evening_start = Carbon::createFromTime(18, 0, 0);
+
+        // Ellenőrizzük, hogy a start_time este 6 óra után van-e
+        if ($start_time->greaterThanOrEqualTo($evening_start) || $end_time->greaterThan($evening_start)) {
+
+            if ($start_time->greaterThanOrEqualTo($evening_start)) {
+                // Számoljuk ki a munkaidőt a kezdő- és végidő között
+                $worked_hours = $start_time->diffInSeconds($end_time) * 1.3;
+            } else {
+                $worked_hours = $start_time->diffInSeconds($evening_start);
+                $worked_hours += $evening_start->diffInSeconds($end_time) * 1.3;
+            }
+            error_log('van bérpótlék');
+        } else {
+            // Ha a start_time este 6 óra előtt van, akkor nincs bérpótlék
+            $worked_hours = $end_time->diffInSeconds($start_time);
+            error_log('nincs bérpótlék');
+        }
+
+        // A dolgozott órák számát századokra kerekítjük és tároljuk
+        error_log($worked_hours);
+        $worked_hours = $worked_hours / 3600;
+        $worked_hours = round($worked_hours, 3);
+        error_log($worked_hours);
+
+        $shift = Shift::find($id);
+        $shift->update([
+            'start_time' => $start_time,
+            'end_time' => $end_time,
+            'hourly_wage' => $hourly_wage,
+            'worked_hours' => $worked_hours,
+        ]);
+
+        return redirect()->back()->with('message', 'A műszak sikeresen frissítve lett.');
     }
 
     /**
@@ -92,7 +149,8 @@ class ShiftController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Shift::destroy($id);
+        return redirect()->back()->with('message', 'A műszak sikeresen törölve lett.');
     }
 
     /**
@@ -113,7 +171,7 @@ class ShiftController extends Controller
                 DB::raw("DATE_FORMAT(end_time, '%H:%i') AS end_time")
             )
             ->where('user_id', Auth::user()->id)
-            ->orderBy('start_time', 'desc')
+            ->orderBy('date', 'desc')
             ->get();
 
         $months = DB::table('shifts')

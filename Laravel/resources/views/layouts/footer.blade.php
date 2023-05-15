@@ -41,14 +41,13 @@
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <!-- Content -->
-                    <h6 class="text-uppercase fw-bold">Company name</h6>
+                    <h6 class="text-uppercase fw-bold">Blasek Balázs</h6>
                     <hr class="mb-4 mt-0 d-inline-block mx-auto"
                         style="width: 60px; background-color: #1a66b8; height: 2px" />
                     <p>
-                        Here you can use rows and columns to organize your footer
-                        content. Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit.
-                    </p>
+                        Ha tetszika a weboldal, kérlek látogass el <a href="https://balazs.blasek.hu"><b>fő
+                                oldalamra</b></a> és vedd fel velem a kapcsolatot
+                        amennyiben szükséged lenne valamilyen szolgáltatásara.</p>
                 </div>
                 <!-- Grid column -->
 
@@ -80,8 +79,10 @@
                     <hr class="mb-4 mt-0 d-inline-block mx-auto"
                         style="width: 60px; background-color: #7c4dff; height: 2px" />
                     <p><i class="fas fa-home mr-3"></i> Magyarország, Győr</p>
-                    <p><i class="fas fa-envelope mr-3"></i> blasek.balazs@gmail.com</p>
-                    <p><i class="fas fa-phone mr-3"></i> + 36 30 605 2051</p>
+                    <p><i class="fas fa-envelope mr-3"></i> <a href="mailto: blasek.balazs@gmail.com"
+                            class="text-white"> blasek.balazs@gmail.com</a></p>
+                    <p><i class="fas fa-phone mr-3"></i> <a href="tel:+36306052051" class="text-white"> + 36 30 605
+                            2051</a></p>
                 </div>
                 <!-- Grid column -->
             </div>

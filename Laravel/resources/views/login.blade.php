@@ -7,13 +7,14 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-auto col-sm-12 bg-blur-login">
+                @if (session('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                    </div>
+                @endif
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                    <div class="alert alert-danger d-flex align-items-center">
+                        {{ $errors->first() }}
                     </div>
                 @endif
                 <form method="POST" action="{{ route('login') }}">

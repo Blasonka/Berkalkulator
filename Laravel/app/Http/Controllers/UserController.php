@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -82,14 +83,32 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect(route('profile'));
+        return redirect()->back()->with('message', 'A fiókja sikeresen frissítve lett.');
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'A jelenlegi jelszó nem helyes.'])->withInput();
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('message', 'A jelszó sikeresen frissítve lett.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        $user = Auth::user();
+        $user->delete();
+        Auth::logout();
+
+        return redirect()->route('login')->with('message', 'A fiókod sikeresen törölve lett.');
     }
 }

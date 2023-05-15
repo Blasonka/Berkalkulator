@@ -7,15 +7,6 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-md-auto col-sm-12 bg-blur-login">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
                     <div class="row col-lg-10 mx-auto">

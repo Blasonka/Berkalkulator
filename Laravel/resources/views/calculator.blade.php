@@ -21,7 +21,8 @@
                     <div class="row col-lg-10 mb-3 mx-auto">
                         <label for="date" class="form-label">Munkanap:</label>
                         <div class="mx-auto">
-                            <input type="date" id="date" name="date" value="{{date('Y-m-d')}}" required pattern="\d{4}-\d{2}-\d{2}" />
+                            <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}" required
+                                pattern="\d{4}-\d{2}-\d{2}" max="{{ date('Y-m-d') }}" />
                         </div>
                     </div>
                     <div class="row col-lg-10 mb-3 mx-auto">
@@ -39,7 +40,8 @@
                     <div class="row col-lg-10 mb-3 mx-auto">
                         <label for="hourly_wage" class="form-label">Órabér</label>
                         <div class="mx-auto">
-                            <input type="number" id="hourly_wage" name="hourly_wage" min="1000" max="10000" value="{{Auth::user()->hourly_wage}}" required>
+                            <input type="number" id="hourly_wage" name="hourly_wage" min="1000" max="10000"
+                                value="{{ Auth::user()->hourly_wage }}" required>
                             <span style="margin-left:10px;">Ft</span>
                         </div>
                     </div>
