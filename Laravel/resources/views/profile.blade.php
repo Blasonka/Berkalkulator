@@ -39,17 +39,63 @@
                 <input type="email" class="form-control" id="email" name="email" autocomplete="username"
                     value="{{ Auth::user()->email }}" required>
             </div>
+            <button type="submit" class="btn btn-light">Mentés</button>
+        </form>
+    </div>
+
+    <div class="container text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 py-3 mb-3"
+        data-bs-theme="dark">
+
+        {{-- Messages --}}
+        @if (session('message_wage'))
+            <div class="alert alert-success">
+                {{ session('message_wage') }}
+            </div>
+        @endif
+
+        {{-- Udate general account information --}}
+        <form method="POST" action="{{ route('wage') }}" class="col-xxl-6 col-xl-7 col-lg-8 col-md-9">
+            @csrf
+            <h3>Órabérek</h3>
+            <p>
+                Mentse el gyakran használt órabéreit a gyorsabb számolásokhoz.
+            </p>
             <div class="mb-3">
-                <label for="hourly_wage" class="form-label">Órabér</label>
-                @if ($errors->has('hourly_wage'))
-                    <div class="alert alert-danger d-flex align-items-center">
-                        {{ $errors->first('hourly_wage') }}
+                <div class="row">
+                    <div class="col-6">
+                        <label for="name_wage" class="form-label">Megnevezés</label>
+                        <input type="text" class="form-control" id="name_wage" name="name_wage" required>
+                        @if ($errors->has('name_wage'))
+                            <div class="alert alert-danger d-flex align-items-center">
+                                {{ $errors->first('name_wage') }}
+                            </div>
+                        @endif
                     </div>
-                @endif
-                <input type="number" class="form-control" id="hourly_wage" name="hourly_wage" autocomplete="hourly_wage"
-                    value="{{ Auth::user()->hourly_wage }}">
+                    <div class="col-6">
+                        <label for="value" class="form-label">Órabér</label>
+                        <input type="number" class="form-control" id="value" name="value" min="1000" max="10000" required>
+                        @if ($errors->has('value'))
+                            <div class="alert alert-danger d-flex align-items-center">
+                                {{ $errors->first('value') }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
             </div>
             <button type="submit" class="btn btn-light">Mentés</button>
+        </form>
+        <form method="POST" action="{{ route('update_profile') }}" class="col-xxl-6 col-xl-7 col-lg-8 col-md-9 mt-3">
+            <ol class="list-group list-group-numbered">
+                @foreach ($wages as $wage)
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{ $wage->name }} - {{ $wage->value }}</div>
+                        </div>
+                        <button class="btn btn-primary mx-1" disabled>Szerkesztés</button>
+                        <button class="btn btn-danger mx-1" disabled>Törlés</button>
+                    </li>
+                @endforeach
+            </ol>
         </form>
     </div>
 
@@ -115,7 +161,8 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="deleteProfileLabel">Fiók törlése</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <h3>Biztosan szeretné véglet törölni fiókját?</h3>

@@ -51,4 +51,8 @@ class User extends Authenticatable
     public function shifts() {
         return $this->hasMany(Shift::class, 'user_id', 'id');
     }
+
+    public function wages() {
+        return $this->hasMany(Wage::class, 'user_id', 'id');
+    }
 }

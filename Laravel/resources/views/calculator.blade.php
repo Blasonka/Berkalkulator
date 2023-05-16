@@ -38,13 +38,74 @@
                         </div>
                     </div>
                     <div class="row col-lg-10 mb-3 mx-auto">
-                        <label for="hourly_wage" class="form-label">Órabér</label>
-                        <div class="mx-auto">
+                        <div class="col-md-8">
+                            <label for="inputState" class="form-label">Órabér</label>
+                            <select id="inputState" class="form-select">
+                                <option selected>Egyéni összeg:</option>
+                                @foreach ($wages as $wage)
+                                    <option><a href="#hourly_wage">{{ $wage->name }} - {{ $wage->value }}</a></option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mx-auto mt-3">
                             <input type="number" id="hourly_wage" name="hourly_wage" min="1000" max="10000"
-                                value="{{ Auth::user()->hourly_wage }}" required>
+                                value="{{ $wage->value }}" required>
                             <span style="margin-left:10px;">Ft</span>
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="list-group" id="list-tab" role="tablist">
+                                <a class="list-group-item list-group-item-action active" id="list-home-list"
+                                    data-bs-toggle="list" href="#list-home" role="tab"
+                                    aria-controls="list-home">Home</a>
+                                <a class="list-group-item list-group-item-action" id="list-profile-list"
+                                    data-bs-toggle="list" href="#list-profile" role="tab"
+                                    aria-controls="list-profile">Profile</a>
+                                <a class="list-group-item list-group-item-action" id="list-messages-list"
+                                    data-bs-toggle="list" href="#list-messages" role="tab"
+                                    aria-controls="list-messages">Messages</a>
+                                <a class="list-group-item list-group-item-action" id="list-settings-list"
+                                    data-bs-toggle="list" href="#list-settings" role="tab"
+                                    aria-controls="list-settings">Settings</a>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                                    aria-labelledby="list-home-list">1</div>
+                                <div class="tab-pane fade" id="list-profile" role="tabpanel"
+                                    aria-labelledby="list-profile-list">2</div>
+                                <div class="tab-pane fade" id="list-messages" role="tabpanel"
+                                    aria-labelledby="list-messages-list">3</div>
+                                <div class="tab-pane fade" id="list-settings" role="tabpanel"
+                                    aria-labelledby="list-settings-list">4</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
                     <div class="row col-lg-10 mb-3 mx-auto">
                         <div class="mx-auto">
                             <div class="form-check">

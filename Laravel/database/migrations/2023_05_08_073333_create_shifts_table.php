@@ -21,8 +21,6 @@ return new class extends Migration
             $table->dateTime('end_time')->comment('A műszak vég dátuma');
             $table->integer('hourly_wage')->unsigned()->comment('A műszakhoz tartozó órabér');
             $table->decimal('worked_hours', 10,3)->unsigned()->comment('A ledolgozott órák száma');
-
-
         });
     }
 

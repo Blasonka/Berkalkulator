@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WageController;
+use App\Models\Wage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +53,16 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     //Profile methods
     Route::get('/profile', function () {
-        return view('profile');
+        $wages = DB::table('wages')
+            ->select(
+                'id',
+                'name',
+                'value',
+            )
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('name', 'asc')
+            ->get();
+        return view('profile', ['wages' => $wages]);
     })->name('profile');
     Route::put('/update_profile', [UserController::class, 'update'])->name('update_profile');
     Route::put('/update_password', [UserController::class, 'updatePassword'])->name('update_password');
@@ -60,6 +71,7 @@ Route::middleware('auth')->group(function () {
     //Shifts methods
     Route::get('/shifts', [ShiftController::class, 'show_page'])->name('shifts');
     Route::post('shift', [ShiftController::class, 'store'])->name('shift');
+    Route::post('wage', [WageController::class, 'store'])->name('wage');
     Route::put('/update_shift/{id}', [ShiftController::class, 'update'])->name('update_shift');
     Route::delete('/delete_shift/{id}', [ShiftController::class, 'destroy'])->name('delete_shift');
 
@@ -68,6 +80,15 @@ Route::middleware('auth')->group(function () {
 
     //calculte
     Route::get('/calculator', function () {
-        return view('calculator');
+        $wages = DB::table('wages')
+            ->select(
+                'id',
+                'name',
+                'value',
+            )
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('name', 'asc')
+            ->get();
+        return view('calculator', ['wages' => $wages]);
     })->name('calculator');
 });
