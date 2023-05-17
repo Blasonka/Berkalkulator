@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session as FacadesSession;
 use Illuminate\Validation\Rules;
@@ -20,7 +21,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        $wages = DB::table('wages')
+            ->select(
+                'id',
+                'name',
+                'value',
+            )
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('name', 'asc')
+            ->get();
+        return view('profile', ['wages' => $wages]);
     }
 
     /**
@@ -63,14 +73,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateRequest $request)
@@ -105,8 +107,7 @@ class UserController extends Controller
      */
     public function destroy()
     {
-        $user = Auth::user();
-        $user->delete();
+        User::destroy(Auth::user());
         Auth::logout();
 
         return redirect()->route('login')->with('message', 'A fiókod sikeresen törölve lett.');

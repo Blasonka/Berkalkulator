@@ -73,7 +73,8 @@
                     </div>
                     <div class="col-6">
                         <label for="value" class="form-label">Órabér</label>
-                        <input type="number" class="form-control" id="value" name="value" min="1000" max="10000" required>
+                        <input type="number" class="form-control" id="value" name="value" min="1000"
+                            max="10000" required>
                         @if ($errors->has('value'))
                             <div class="alert alert-danger d-flex align-items-center">
                                 {{ $errors->first('value') }}
@@ -84,19 +85,72 @@
             </div>
             <button type="submit" class="btn btn-light">Mentés</button>
         </form>
-        <form method="POST" action="{{ route('update_profile') }}" class="col-xxl-6 col-xl-7 col-lg-8 col-md-9 mt-3">
+        <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-9 mt-3">
             <ol class="list-group list-group-numbered">
                 @foreach ($wages as $wage)
                     <li class="list-group-item d-flex justify-content-between align-items-start">
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">{{ $wage->name }} - {{ $wage->value }}</div>
                         </div>
-                        <button class="btn btn-primary mx-1" disabled>Szerkesztés</button>
-                        <button class="btn btn-danger mx-1" disabled>Törlés</button>
+                        <form action="{{ route('update_wage', ['id' => $wage->id]) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <a class="btn btn-primary mx-1" data-bs-toggle="modal"
+                                data-bs-target="#editWage">Szerkesztés</a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="editWage" tabindex="-1" aria-labelledby="editWageLabel"
+                                aria-hidden="true" data-bs-theme="dark">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="editWageLabel">Fiók törlése</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <label for="name_wage" class="form-label">Megnevezés</label>
+                                                    <input type="text" class="form-control" value="{{ $wage->name }}"
+                                                        id="name_wage" name="name_wage" required>
+                                                    @if ($errors->has('name_wage'))
+                                                        <div class="alert alert-danger d-flex align-items-center">
+                                                            {{ $errors->first('name_wage') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="value" class="form-label">Órabér</label>
+                                                    <input type="number" class="form-control" value="{{ $wage->value }}"
+                                                        id="value" name="value" min="1000" max="10000"
+                                                        required>
+                                                    @if ($errors->has('value'))
+                                                        <div class="alert alert-danger d-flex align-items-center">
+                                                            {{ $errors->first('value') }}
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Mégsem</button>
+                                            <button type="submit" class="btn btn-primary">Mentés</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <form action="{{ route('delete_wage', ['id' => $wage->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger mx-1">Törlés</button>
+                        </form>
                     </li>
                 @endforeach
             </ol>
-        </form>
+        </div>
     </div>
 
     {{-- Udate account password --}}
@@ -131,8 +185,8 @@
             </div>
             <div class="mb-3">
                 <label for="new_password_confirmation" class="form-label">Új jelszó megerősítése</label>
-                <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation"
-                    required>
+                <input type="password" class="form-control" id="new_password_confirmation"
+                    name="new_password_confirmation" required>
             </div>
             <button type="submit" class="btn btn-light">Mentés</button>
         </form>

@@ -51,29 +51,23 @@ Route::middleware('guest')->group(function () {
 
 // Only authenticated users can see
 Route::middleware('auth')->group(function () {
+
     //Profile methods
-    Route::get('/profile', function () {
-        $wages = DB::table('wages')
-            ->select(
-                'id',
-                'name',
-                'value',
-            )
-            ->where('user_id', Auth::user()->id)
-            ->orderBy('name', 'asc')
-            ->get();
-        return view('profile', ['wages' => $wages]);
-    })->name('profile');
+    Route::get('/profile', [UserController::class, 'index'])->name('profile');
     Route::put('/update_profile', [UserController::class, 'update'])->name('update_profile');
     Route::put('/update_password', [UserController::class, 'updatePassword'])->name('update_password');
     Route::delete('/delete_profile', [UserController::class, 'destroy'])->name('delete_profile');
 
     //Shifts methods
     Route::get('/shifts', [ShiftController::class, 'show_page'])->name('shifts');
-    Route::post('shift', [ShiftController::class, 'store'])->name('shift');
-    Route::post('wage', [WageController::class, 'store'])->name('wage');
+    Route::post('/shift', [ShiftController::class, 'store'])->name('shift');
     Route::put('/update_shift/{id}', [ShiftController::class, 'update'])->name('update_shift');
     Route::delete('/delete_shift/{id}', [ShiftController::class, 'destroy'])->name('delete_shift');
+
+    //Wage methods
+    Route::post('/wage', [WageController::class, 'store'])->name('wage');
+    Route::put('/update_wage/{id}', [WageController::class, 'update'])->name('update_wage');
+    Route::delete('/wage/{id}', [WageController::class, 'destroy'])->name('delete_wage');
 
     //logout
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
