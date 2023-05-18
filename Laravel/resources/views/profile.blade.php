@@ -19,6 +19,8 @@
             <p>
                 Frissítse fiókja adatait és e-mail címét.
             </p>
+
+            {{-- NAME INPUT --}}
             <div class="mb-3">
                 <label for="name" class="form-label">Név</label>
                 @if ($errors->has('name'))
@@ -29,6 +31,8 @@
                 <input type="text" class="form-control" id="name" name="name" value="{{ Auth::user()->name }}"
                     required>
             </div>
+
+            {{-- EMAIL INPUT --}}
             <div class="mb-3">
                 <label for="email" class="form-label">Email cím</label>
                 @if ($errors->has('email'))
@@ -39,6 +43,8 @@
                 <input type="email" class="form-control" id="email" name="email" autocomplete="username"
                     value="{{ Auth::user()->email }}" required>
             </div>
+
+            {{-- SAVE BUTTON --}}
             <button type="submit" class="btn btn-light">Mentés</button>
         </form>
     </div>
@@ -53,7 +59,7 @@
             </div>
         @endif
 
-        {{-- Udate general account information --}}
+        {{-- Udate hourly wages --}}
         <form method="POST" action="{{ route('wage') }}" class="col-xxl-6 col-xl-7 col-lg-8 col-md-9">
             @csrf
             <h3>Órabérek</h3>
@@ -63,18 +69,26 @@
             <div class="mb-3">
                 <div class="row">
                     <div class="col-6">
+
+                        {{-- WAGE NAME --}}
                         <label for="name_wage" class="form-label">Megnevezés</label>
                         <input type="text" class="form-control" id="name_wage" name="name_wage" required>
+
+                        {{-- HOURLY WAGE NAME MESSAGES --}}
                         @if ($errors->has('name_wage'))
                             <div class="alert alert-danger d-flex align-items-center">
                                 {{ $errors->first('name_wage') }}
                             </div>
                         @endif
                     </div>
+
+                    {{-- WAGE VALUE --}}
                     <div class="col-6">
                         <label for="value" class="form-label">Órabér</label>
                         <input type="number" class="form-control" id="value" name="value" min="1000"
                             max="10000" required>
+
+                        {{-- HOURLY WAGE VALUE MESSAGES --}}
                         @if ($errors->has('value'))
                             <div class="alert alert-danger d-flex align-items-center">
                                 {{ $errors->first('value') }}
@@ -83,8 +97,12 @@
                     </div>
                 </div>
             </div>
+
+            {{-- SAVE BUTTON --}}
             <button type="submit" class="btn btn-light">Mentés</button>
         </form>
+
+        {{-- SAVED WAGES LIST --}}
         <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-9 mt-3">
             <ol class="list-group list-group-numbered">
                 @foreach ($wages as $wage)
@@ -92,24 +110,28 @@
                         <div class="ms-2 me-auto">
                             <div class="fw-bold">{{ $wage->name }} - {{ $wage->value }}</div>
                         </div>
+
+                        {{-- EDIT OR DELETE SAVED WAGES --}}
                         <form action="{{ route('update_wage', ['id' => $wage->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <a class="btn btn-primary mx-1" data-bs-toggle="modal"
                                 data-bs-target="#editWage">Szerkesztés</a>
 
-                            <!-- Modal -->
+                            <!-- EDIT WAGE MODAL -->
                             <div class="modal fade" id="editWage" tabindex="-1" aria-labelledby="editWageLabel"
                                 aria-hidden="true" data-bs-theme="dark">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="editWageLabel">Fiók törlése</h1>
+                                            <h1 class="modal-title fs-5" id="editWageLabel">Órabér szerkesztése</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
+
+                                                {{-- EDIT WAGE NAME --}}
                                                 <div class="col-6">
                                                     <label for="name_wage" class="form-label">Megnevezés</label>
                                                     <input type="text" class="form-control" value="{{ $wage->name }}"
@@ -120,6 +142,8 @@
                                                         </div>
                                                     @endif
                                                 </div>
+
+                                                {{-- EDIT WAGE VALUE --}}
                                                 <div class="col-6">
                                                     <label for="value" class="form-label">Órabér</label>
                                                     <input type="number" class="form-control" value="{{ $wage->value }}"
@@ -134,6 +158,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
+
+                                            {{-- EDIT WAGE BUTTONS --}}
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Mégsem</button>
                                             <button type="submit" class="btn btn-primary">Mentés</button>

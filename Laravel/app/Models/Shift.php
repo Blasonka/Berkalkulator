@@ -9,6 +9,7 @@ class Shift extends Model
 {
     use HasFactory;
 
+    // Tabel properties
     protected $table = 'shifts';
     protected $primaryKey = 'id';
     public $timestamps = false;

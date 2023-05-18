@@ -3,8 +3,6 @@
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WageController;
-use App\Models\Wage;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -73,16 +71,5 @@ Route::middleware('auth')->group(function () {
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
     //calculte
-    Route::get('/calculator', function () {
-        $wages = DB::table('wages')
-            ->select(
-                'id',
-                'name',
-                'value',
-            )
-            ->where('user_id', Auth::user()->id)
-            ->orderBy('name', 'asc')
-            ->get();
-        return view('calculator', ['wages' => $wages]);
-    })->name('calculator');
+    Route::get('/calculator', [ShiftController::class, 'show_calculator'])->name('calculator');
 });

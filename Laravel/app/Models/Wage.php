@@ -9,6 +9,7 @@ class Wage extends Model
 {
     use HasFactory;
 
+    // Tabel properties
     protected $table = 'wages';
     protected $primaryKey = 'id';
     public $timestamps = false;

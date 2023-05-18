@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- Havi leosztás --}}
+    {{-- MONTLY TABLE --}}
     <div class="container">
 
         {{-- Messages --}}
@@ -11,11 +11,13 @@
             </div>
         @endif
 
+        {{-- TABLE --}}
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
                 <h2 class="heading-section">Összesen</h2>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="table-wrap">
@@ -42,13 +44,15 @@
         </div>
     </div>
 
-    {{-- Napi leosztás --}}
+    {{-- DAILY TABLE --}}
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
                 <h2 class="heading-section">Beosztás</h2>
             </div>
         </div>
+
+        {{-- TABLE HEADER --}}
         <div class="row">
             <div class="col-md-12">
                 <div class="table-wrap">
@@ -63,6 +67,8 @@
                                 <th></th>
                             </tr>
                         </thead>
+
+                        {{-- TABLE BODY --}}
                         <tbody>
                             @foreach ($shifts as $shift)
                                 <tr>

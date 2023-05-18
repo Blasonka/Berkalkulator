@@ -153,12 +153,6 @@ class ShiftController extends Controller
         return redirect()->back()->with('message', 'A műszak sikeresen törölve lett.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show_page()
     {
         $shifts = DB::table('shifts')
@@ -181,5 +175,19 @@ class ShiftController extends Controller
             ->get();
 
         return view('shift', ['shifts' => $shifts, 'months' => $months]);
+    }
+
+    public function show_calculator()
+    {
+        $wages = DB::table('wages')
+            ->select(
+                'id',
+                'name',
+                'value',
+            )
+            ->where('user_id', Auth::user()->id)
+            ->orderBy('name', 'asc')
+            ->get();
+        return view('calculator', ['wages' => $wages]);
     }
 }
