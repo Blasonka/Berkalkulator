@@ -51,18 +51,14 @@ class ShiftController extends Controller
                 $worked_hours = $start_time->diffInSeconds($evening_start);
                 $worked_hours += $evening_start->diffInSeconds($end_time) * 1.3;
             }
-            error_log('van bérpótlék');
         } else {
             // Ha a start_time este 6 óra előtt van, akkor nincs bérpótlék
             $worked_hours = $end_time->diffInSeconds($start_time);
-            error_log('nincs bérpótlék');
         }
 
         // A dolgozott órák számát századokra kerekítjük és tároljuk
-        error_log($worked_hours);
         $worked_hours = $worked_hours / 3600;
         $worked_hours = round($worked_hours, 3);
-        error_log($worked_hours);
 
         $shift = Shift::create([
             'user_id' => Auth::user()->id,
@@ -117,20 +113,16 @@ class ShiftController extends Controller
                 $worked_hours = $start_time->diffInSeconds($evening_start);
                 $worked_hours += $evening_start->diffInSeconds($end_time) * 1.3;
             }
-            error_log('van bérpótlék');
         } else {
             // Ha a start_time este 6 óra előtt van, akkor nincs bérpótlék
             $worked_hours = $end_time->diffInSeconds($start_time);
-            error_log('nincs bérpótlék');
         }
 
         // A dolgozott órák számát századokra kerekítjük és tároljuk
-        error_log($worked_hours);
         $worked_hours = $worked_hours / 3600;
         $worked_hours = round($worked_hours, 3);
-        error_log($worked_hours);
 
-        $shift = Shift::find($id);
+        $shift = Shift::where('id', $id);
         $shift->update([
             'start_time' => $start_time,
             'end_time' => $end_time,
