@@ -15,10 +15,6 @@
                                 href="{{ route('home') }}">Főoldal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->is('thanks') ? 'active' : '' }}"
-                                href="{{ route('thanks') }}">Köszönet</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link {{ request()->is('support') ? 'active' : '' }}"
                                 href="{{ route('support') }}">Kapcsolat</a>
                         </li>

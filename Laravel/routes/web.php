@@ -23,10 +23,6 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/thanks', function () {
-    return view('thanks');
-})->name('thanks');
-
 Route::get('/support', function () {
     return view('support');
 })->name('support');
